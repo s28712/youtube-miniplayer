@@ -1,9 +1,9 @@
 {
-  "name": "with-electron-typescript",
+  "name": "youtube-miniplayer",
   "version": "1.0.0",
   "license": "MIT",
   "main": "main/index.js",
-  "productName": "ElectronTypescriptNext",
+  "productName": "Youtube Miniplayer",
   "scripts": {
     "clean": "rimraf dist main renderer/out renderer/.next",
     "dev": "npm run build-electron && electron .",
