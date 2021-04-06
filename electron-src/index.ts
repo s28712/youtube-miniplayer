@@ -31,5 +31,33 @@ app.on('ready', async () => {
   mainWindow.loadURL(url)
 })
 
-
 app.on('window-all-closed', app.quit);
+
+ipcMain.addListener('spawnWindow', (_, args) => {
+  console.log(args[0]);
+
+  player = new BrowserWindow({
+    width: 600, 
+    height: 350,
+    alwaysOnTop: true,
+    frame: false,
+    webPreferences: {
+      nodeIntegration: false,
+      preload: join(__dirname, 'preload.js')
+    }  
+  });
+
+  const player_url = isDev
+    ? 'http://localhost:8000/video'
+    : format({
+        pathname: join(__dirname, '../renderer/out/video.html'),
+        protocol: 'file:',
+        slashes: true,
+  });
+
+  mainWindow.hide();
+  player.loadURL(player_url);
+  player.show();
+
+  player.on('close', () => mainWindow.show());
+});

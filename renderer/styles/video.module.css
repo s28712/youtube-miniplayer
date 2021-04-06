@@ -1,0 +1,4 @@
+.vid {
+  -webkit-app-region: drag;
+  pointer-events: none;
+}
