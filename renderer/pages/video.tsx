@@ -1,34 +1,40 @@
-import { useEffect, useState } from 'react'
+import { NextPage } from 'next'
 import Youtube, { Options } from 'react-youtube'
 import styles from '../styles/video.module.css'
 
-const Video = () => {
-  useEffect(() => {});
+interface Props {
+  url: string | string[];
+}
 
+const Video: NextPage<any> = ({ id }) => {
   const opts: Options = {
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
       rel: 0,
       controls: 0,
       modestbranding: 1,
-      disablekb: 1,
+      disablekb: 0,
+      showinfo: 0,
       fs: 0
     }
   }
 
   return (
     <div className="">
-      <div className="absolute">
+      <div className="">
         <Youtube 
-          className={"h-screen w-screen absolute" + " " + styles.vid}
-          videoId={''}  
+          className={"h-screen w-screen" + " " + styles.vid}
+          videoId={id}  
           opts={opts} 
         >
         </Youtube>
-        <div className="fixed w-screen top-1/2 bg-red-600">Test</div>
       </div>
     </div>
   );
+}
+
+Video.getInitialProps = async ({ query }) => {
+  return { id: query.id }
 }
 
 export default Video;

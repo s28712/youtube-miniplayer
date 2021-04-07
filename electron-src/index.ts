@@ -48,9 +48,9 @@ ipcMain.addListener('spawnWindow', (_, args) => {
   });
 
   const player_url = isDev
-    ? 'http://localhost:8000/video'
+    ? 'http://localhost:8000/video?id='+args[0]
     : format({
-        pathname: join(__dirname, '../renderer/out/video.html'),
+        pathname: join(__dirname, '../renderer/out/video.html?id='+args[0]),
         protocol: 'file:',
         slashes: true,
   });
@@ -58,6 +58,14 @@ ipcMain.addListener('spawnWindow', (_, args) => {
   mainWindow.hide();
   player.loadURL(player_url);
   player.show();
+  
+  player.webContents.on('will-navigate', (event) => {
+    event.preventDefault()
+  });
+
+  player.webContents.on('new-window', (event) => {
+    event.preventDefault();
+  });
 
   player.on('close', () => mainWindow.show());
 });
