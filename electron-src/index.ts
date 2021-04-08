@@ -8,6 +8,8 @@ import prepareNext from 'electron-next'
 let mainWindow: BrowserWindow;
 let player: BrowserWindow;
 
+let id: string;
+
 app.on('ready', async () => {
   await prepareNext('./renderer')
 
@@ -31,16 +33,22 @@ app.on('ready', async () => {
   mainWindow.loadURL(url)
 })
 
-app.on('window-all-closed', app.quit);
+app.on('window-all-closed', () => {
+  if(process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+ipcMain.on('send-id', (event) => {
+  event.returnValue = id;
+});
 
 ipcMain.addListener('spawnWindow', (_, args) => {
-  console.log(args[0]);
-
   player = new BrowserWindow({
     width: 600, 
     height: 350,
     alwaysOnTop: true,
-    frame: true,
+    frame: false,
     webPreferences: {
       nodeIntegration: false,
       preload: join(__dirname, 'preload.js')
@@ -50,9 +58,9 @@ ipcMain.addListener('spawnWindow', (_, args) => {
   player.setAspectRatio(10/5);
 
   const player_url = isDev
-    ? 'http://localhost:8000/video?id='+args[0]
+    ? 'http://localhost:8000/video'
     : format({
-        pathname: join(__dirname, '../renderer/out/video.html?id='+args[0]),
+        pathname: join(__dirname, '../renderer/out/video.html'),
         protocol: 'file:',
         slashes: true,
   });
@@ -68,6 +76,8 @@ ipcMain.addListener('spawnWindow', (_, args) => {
   player.webContents.on('new-window', (event) => {
     event.preventDefault();
   });
+
+  id = args[0];
 
   player.on('close', () => mainWindow.show());
 });
