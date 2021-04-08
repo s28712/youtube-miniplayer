@@ -40,12 +40,14 @@ ipcMain.addListener('spawnWindow', (_, args) => {
     width: 600, 
     height: 350,
     alwaysOnTop: true,
-    frame: false,
+    frame: true,
     webPreferences: {
       nodeIntegration: false,
       preload: join(__dirname, 'preload.js')
     }  
   });
+  
+  player.setAspectRatio(10/5);
 
   const player_url = isDev
     ? 'http://localhost:8000/video?id='+args[0]

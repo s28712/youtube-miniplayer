@@ -2,14 +2,10 @@ import { NextPage } from 'next'
 import Youtube, { Options } from 'react-youtube'
 import styles from '../styles/video.module.css'
 
-interface Props {
-  url: string | string[];
-}
-
 const Video: NextPage<any> = ({ id }) => {
   const opts: Options = {
     playerVars: {
-      autoplay: 0,
+      autoplay: 1,
       rel: 0,
       controls: 0,
       modestbranding: 1,
