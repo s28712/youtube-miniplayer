@@ -9,6 +9,10 @@ let mainWindow: BrowserWindow;
 let player: BrowserWindow;
 
 let id: string;
+let deeplinkingUrl: string = '';
+
+app.setAsDefaultProtocolClient('yt-player');
+
 
 app.on('ready', async () => {
   await prepareNext('./renderer')
@@ -20,7 +24,7 @@ app.on('ready', async () => {
       nodeIntegration: false,
       preload: join(__dirname, 'preload.js'),
     },
-  })
+  });
 
   const url = isDev
     ? 'http://localhost:8000/'
@@ -30,20 +34,37 @@ app.on('ready', async () => {
         slashes: true,
     });
 
-  mainWindow.loadURL(url)
-})
+  mainWindow.loadURL(url);
+
+  if (process.platform == 'win32') {
+    // Keep only command line / deep linked arguments
+    deeplinkingUrl = process.argv.slice(1).toString();
+  }
+});
 
 app.on('window-all-closed', () => {
-  if(process.platform !== 'darwin') {
-    app.quit();
-  }
+  app.quit();
+});
+
+app.on('open-url', (event, url) => {
+  event.preventDefault();
+  deeplinkingUrl = url;
+});
+
+app.on('window-all-closed', () => {
+  app.quit();
 });
 
 ipcMain.on('send-id', (event) => {
   event.returnValue = id;
 });
 
+ipcMain.on('get-deep', (event) => {
+  event.returnValue = deeplinkingUrl;
+});
+
 ipcMain.addListener('spawnWindow', (_, args) => {
+  player ? player.destroy() : {};
   player = new BrowserWindow({
     width: 600, 
     height: 350,
@@ -79,5 +100,9 @@ ipcMain.addListener('spawnWindow', (_, args) => {
 
   id = args[0];
 
-  player.on('close', () => mainWindow.show());
+  player.on('close', (event) => { 
+    event.preventDefault();
+    player.destroy();
+    mainWindow.show();
+  });
 });
