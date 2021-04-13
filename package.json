@@ -39,11 +39,16 @@
     "appId": "yt-playerv2",
     "protocols": {
       "name": "yt-player",
-      "schemes": ["yt-player"]
+      "schemes": [
+        "yt-player"
+      ]
     },
     "mac": {
-      "category": "public.app-category.Reference"
+      "category": "public.app-category.Reference",
+      "icon": "build/logo.png"
     },
-    "win": {}
+    "win": {
+      "icon": "build/logo.png"
+    }
   }
 }
