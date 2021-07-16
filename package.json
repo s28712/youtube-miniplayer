@@ -11,7 +11,7 @@
     "build-electron": "tsc -p electron-src",
     "build": "npm run build-renderer && npm run build-electron",
     "pack-app": "npm run build && electron-builder --dir",
-    "dist": "npm run build && electron-builder",
+    "dist": "npm run build && electron-builder --win --mac --linux",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
     "autoprefixer": "^10.2.5",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
-    "next": "latest",
+    "next": "^11.0.1",
     "postcss": "^8.2.9",
     "rimraf": "^3.0.0",
     "tailwindcss": "^2.1.1",
@@ -48,6 +48,11 @@
       "icon": "build/logo.png"
     },
     "win": {
+      "icon": "build/logo.png",
+      "target": "NSIS"
+    },
+    "linux": {
+      "target": "AppImage",
       "icon": "build/logo.png"
     }
   }

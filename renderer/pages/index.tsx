@@ -30,7 +30,7 @@ const IndexPage = () => {
       <div className="input w-screen relative top-1/3 bottom-1/3">    
         <input ref={inputEl} onFocus={() => onFocused(true)} onBlur={() => onFocused(false)} onChange={(e) => setId(e.target.value)} type="text" id="input-a"/>  
         <label htmlFor="input-a" className=""> Youtube URL:</label>
-        <div onClick={() => spawnWindow()} className="no-text-highlight button mx-20 text-center">button</div>
+        <div onClick={() => spawnWindow()} className="no-text-highlight button mx-20 text-center">Watch</div>
       </div>
     </div>
   );
