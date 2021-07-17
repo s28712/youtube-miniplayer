@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import { FC, ReactElement, useRef } from 'react'
+import { FastSVG, SimpleSVG, FeatureSVG } from '../components/svg'
 import Link from 'next/link'
 import {
   Container,
@@ -25,7 +26,7 @@ interface LandingProps {
 }
 
 
-const Landing: FC<Landing> = ({ scrollToFeature }) => {
+const Landing: FC<LandingProps> = ({ scrollToFeature }) => {
 
   return (
     <Stack
@@ -113,39 +114,66 @@ const Landing: FC<Landing> = ({ scrollToFeature }) => {
 interface FeatureProps {
   title: string;
   text: string;
-  icon?: ReactElement;
+  icon: React.FunctionComponent;
 }
 
 const Feature: FC<FeatureProps> = ({ title, text, icon }) => {
+
+  function currIcon() {
+    if(icon === FastSVG) {
+      return <FastSVG />
+    }
+
+    else if(icon === SimpleSVG) {
+      return <SimpleSVG />
+    }
+
+    else {
+      return (
+        <Flex justify="center" align="center" w='full' h='full'>
+          <Box w='80%'>
+            <FeatureSVG />
+          </Box>
+        </Flex>
+      );
+    }
+  }
+
   return (
     <Box w="full">
-      <Heading textAlign="center" textColor="white">{ title }</Heading>
-      <Text textAlign="center" textColor="gray.400" mt="4">{ text }</Text>
+      <Flex w="full" justify="center">
+        <Box w='15vh' h='15vh' bg={'white'} rounded="full">{ currIcon() }</Box>
+       </Flex>
+      <Heading textAlign="center" textColor="white" mt="6">{ title }</Heading>
+      <Text textAlign="center" textColor="gray.400" mt="1">{ text }</Text>
     </Box>
   );
 };
 
 const Features: FC = () => {
   return (
-    <Box p={4} bg="gray.700" w="full" py={20}>
+    <Box p={4} bg="gray.700" w="full" h="full" py={20}>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
         <Feature
           title={'Fast'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            'Using the extension that you add to your browser, having a youtube miniplayer has never been easier. Just one tap, and presto, the miniplayer starts.'
           }
+          icon={FastSVG}
         />
         <Feature
           title={'Simple'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            'When it comes to installing the application, it could not be easer. Go to the download page to download the application and add the extension. That\'s it.'
           }
+          icon={SimpleSVG}
         />
         <Feature
           title={'Featurific'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            'With features on par with the inbuilt miniplayer in the browser, along with many more rich features such as URL play, the YT Miniplayer is an easy choice for anyone'
           }
+          icon={FeatureSVG}
         />
       </SimpleGrid>
     </Box>
@@ -155,8 +183,8 @@ const Features: FC = () => {
 const Ending: FC = () => {
   return (
     <Box w="full" h="60vh" py={10}>
-      <Heading textColor="white" textAlign="center" fontSize="6xl">What are you Waiting For</Heading>
-      <Text textColor={'brand.100'} textAlign="center" fontSize="3xl" mt="1">Download Today</Text>
+      <Heading textColor="white" textAlign="center" fontSize="6xl">What are you Waiting For?</Heading>
+      <Text textColor={'brand.100'} textAlign="center" fontSize="3xl" mt="1">Download Today!</Text>
       <Flex justify="center" align="center" h="50%">
         <Link href="/install">
           <Button
