@@ -31,6 +31,7 @@ const IndexPage = () => {
         <input ref={inputEl} onFocus={() => onFocused(true)} onBlur={() => onFocused(false)} onChange={(e) => setId(e.target.value)} type="text" id="input-a"/>  
         <label htmlFor="input-a" className=""> Youtube URL:</label>
         <div onClick={() => spawnWindow()} className="no-text-highlight button mx-20 text-center">Watch</div>
+        <p className="text-sm text-center mt-10" style={{ color: "#44cfcb" }}>* If this is your first time opening the application, please close and reopen it</p>
       </div>
     </div>
   );
