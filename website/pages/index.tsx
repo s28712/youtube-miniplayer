@@ -63,7 +63,7 @@ const Landing: FC<LandingProps> = ({ scrollToFeature }) => {
         <Stack
           spacing={{ base: 4, sm: 6 }}
           direction={{ base: 'column', sm: 'row' }}>
-          <Link href="/install">
+          <Link href="/download">
             <Button
               rounded={'full'}
               size={'lg'}
@@ -186,7 +186,7 @@ const Ending: FC = () => {
       <Heading textColor="white" textAlign="center" fontSize="6xl">What are you Waiting For?</Heading>
       <Text textColor={'brand.100'} textAlign="center" fontSize="3xl" mt="1">Download Today!</Text>
       <Flex justify="center" align="center" h="50%">
-        <Link href="/install">
+        <Link href="/download">
           <Button
             rounded={'full'}
             size={'lg'}
