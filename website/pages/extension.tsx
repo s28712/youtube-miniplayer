@@ -76,7 +76,7 @@ const Landing: FC = () => {
       <ListItem id={5} title="Load the extension">
         <Text color="white" fontSize="20px">Select the "Load Unpacked" button and select the extensions folder unzipped in step 1</Text>
         <Box mt="5">
-          <Image src="/load.png" width="200vh" height="75vh"></Image>
+          <Image src="/load.png" width="450vh" height="75vh"></Image>
         </Box>
       </ListItem>
     </Box>
