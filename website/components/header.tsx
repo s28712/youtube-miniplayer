@@ -20,8 +20,9 @@ import Image from 'next/image'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 const Links = ['Home', 'Download', 'Extension'];
+const urls = ['/', '/download', '/extension'];
 
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink = ({ children, link }: { children: ReactNode, link: string }) => (
   <Link
     px={2}
     py={1}
@@ -30,7 +31,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}>
+    href={link}>
     {children}
   </Link>
 );
@@ -57,9 +58,9 @@ const NavBar = () => {
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
-              <NavLink key={'/'}>Home</NavLink>
-              <NavLink key={'/download'}>Download</NavLink>
-              <NavLink key={'/extension'}>Extension</NavLink>
+              <NavLink link="/" key={'/'}>Home</NavLink>
+              <NavLink link="/download" key={'/download'}>Download</NavLink>
+              <NavLink link="/extension" key={'/extension'}>Extension</NavLink>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -68,8 +69,8 @@ const NavBar = () => {
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+              {urls.map((url, idx) => (
+                <NavLink link={url} key={url}>{Links[idx]}</NavLink>
               ))}
             </Stack>
           </Box>
