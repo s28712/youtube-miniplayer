@@ -20,7 +20,7 @@ const Landing: FC = () => {
     }
 
     else if(os == 'Mac') {
-      window.location.href = "/yt-mac.dmg";
+      window.location.href = "/yt-mac.zip";
     }
 
     else if(os == 'Linux') {
@@ -45,9 +45,10 @@ const Landing: FC = () => {
           textAlign="center"
           pt="50"
         >
-          Download Today<br />
+          Download Today
         </Heading>
       </Flex>
+      <Text textAlign="center" color="gray.500" fontSize="12">*Tested on MacOS, may not install correctly on other operating systems</Text>
 
       <Flex justifyContent={{ base: 'center', md: 'space-evenly' }} alignContent="center" pt="20" direction={{ base: 'column', md: 'row' }}>
         <Box w="50vh">
@@ -104,6 +105,13 @@ const Landing: FC = () => {
               Download
             </Button>
           </Flex>
+          <Text 
+            textAlign="center" 
+            color="gray.600" 
+            mt="4"
+          >
+            *Go to mac system preferences{'->'}security and allow
+          </Text>
         </Box>
       </Flex>
     </Box>
